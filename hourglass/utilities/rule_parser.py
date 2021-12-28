@@ -93,7 +93,7 @@ def get_datetime_object(tag: str, present: datetime, rules: Dict) -> List:
             if token in UNITS_SINGULAR:
                 try:
                     value = tokens[idx-1]
-                    rule = self.get_custom_rule(rules, token, UNITS_SINGULAR.index(token), value, "singular", tokens[idx:])
+                    rule = get_custom_rule(rules, token, UNITS_SINGULAR.index(token), value, "singular", tokens[idx:])
                     datetime_object = compute_datetime(rule, present)
                 except:
                     value = 0
@@ -102,7 +102,7 @@ def get_datetime_object(tag: str, present: datetime, rules: Dict) -> List:
             elif token in UNITS_PLURAL:
                 try:
                     value = tokens[idx-1]
-                    rule = self.get_custom_rule(rules, token, UNITS_PLURAL.index(token), value, "plural", tokens[idx:])
+                    rule = get_custom_rule(rules, token, UNITS_PLURAL.index(token), value, "plural", tokens[idx:])
                     datetime_object = compute_datetime(rule, present)
                 except:
                     value = 0

@@ -19,6 +19,7 @@ from dateutil.relativedelta import relativedelta
 import freezegun
 from datetime import datetime
 from typing import List, Dict, Union
+from hourglass.utilities.detector import DateTimeEntityDetector
 
 __author__ = "Ethereal AI"
 
@@ -51,4 +52,9 @@ class DateTimeTagger():
 		texts: Union[List, str]
 			The input text or texts to be tagged.
 		"""
-		pass
+		if isinstance(texts, str):
+			detector = DateTimeEntityDetector()
+			datetime_entities = detector.get_datetime_entities(texts)
+		elif isinstance(texts, List):
+			datetime_entities = list(map(lambda text: self.tag(text), texts))
+		return datetime_entities

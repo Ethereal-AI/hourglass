@@ -5,12 +5,12 @@ Detect and parse date-time entities in text.
 ### Installing the package
 
 Option 1:<br>
-1. Clone the repository and run `python setup.py build` and then `python setup.py install`.<br>
-2. Run `python -m spacy download en_core_web_sm`.<br><br>
+1. Clone the repository and run `pip install -e .` inside the local repository.<br>
+2. Run `python -m spacy download en_core_web_sm==3.2.0`.<br><br>
 
 Option 2:<br>
 1. Run pip install git+ssh://git@github.com:Ethereal-AI/hourglass.git<br>
-2. Run `python -m spacy download en_core_web_sm`.<br><br>
+2. Run `python -m spacy download en_core_web_sm==3.2.0`.<br><br>
 
 ### Usage
 

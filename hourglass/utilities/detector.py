@@ -23,3 +23,13 @@ __author__ = "Ethereal AI"
 class DateTimeEntityDetector():
 	def __init__(self):
 		self.model = spacy.load("en_core_web_sm", disable=["attribute_ruler", "lemmatizer", "parser", "tagger"])
+
+	def get_datetime_entities(self, text) -> Dict:
+		entity_labels = ("DATE", "TIME")
+		tagged_entities = self.model(text)
+		datetime_entities = [(ent.text, ent.start_char, ent.end_char, ent.label_) for ent in tagged_entities.ents if (ent.label_ in entity_labels)]
+		if len(datetime_entities) != 1:
+			return datetime_entities
+		else:
+			return datetime_entities[0]
+			

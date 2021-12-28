@@ -21,5 +21,5 @@ from hourglass.tagger import DateTimeTagger
 dtt = DateTimeTagger()
 print(dtt.tag("I had an appointment 2 days ago. My next one is tomorrow. 10 days from now, I would be fully vaccinated."))
 
->>> [{'entity': 'an appointment 2 days ago', 'parsed_value': datetime.datetime(2021, 12, 26, 22, 28, 20, 951975)}, {'entity': 'tomorrow', 'parsed_value': datetime.datetime(2021, 12, 29, 22, 28, 20, 951975)}, {'entity': '10 days', 'parsed_value': datetime.datetime(2022, 1, 7, 22, 28, 20, 951975)}]
+>>> [{'entity': 'an appointment 2 days ago', 'parsed_value': datetime.datetime(2021, 12, 27, 3, 16, 8, 220097)}, {'entity': 'tomorrow', 'parsed_value': datetime.datetime(2021, 12, 30, 3, 16, 8, 220097)}, {'entity': '10 days from now', 'parsed_value': datetime.datetime(2022, 1, 8, 3, 16, 8, 220097)}]
 ```

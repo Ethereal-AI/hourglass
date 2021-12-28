@@ -98,9 +98,11 @@ class DateTimeTagger:
         texts: Union[List, str]
                 The input text or texts to be tagged.
         """
-        if isinstance(texts, str) or (isinstance(texts, List) and len(texts) == 1):
-            detector = DateTimeEntityDetector()
+        detector = DateTimeEntityDetector()
+        if isinstance(texts, str):
             datetime_entities = detector.get_datetime_entities(texts)
+        elif isinstance(texts, List) and len(texts) == 1:
+            datetime_entities = detector.get_datetime_entities(texts[0])
         elif isinstance(texts, List) and len(texts) > 1:
             datetime_entities = list(map(lambda text: [self.tag(text)], texts))
         print(datetime_entities)

@@ -106,7 +106,7 @@ def get_datetime_object(tag: str, present: datetime, rules: Dict) -> List:
     try:
         rule = rules.get(tag)
         datetime_object = compute_datetime(rule, present)
-        return datetime_object
+        return {"entity": tag, "parsed_value": datetime_object}
     except:
         tokens = tokenize(tag)
         for idx, token in enumerate(tokens):
@@ -114,9 +114,9 @@ def get_datetime_object(tag: str, present: datetime, rules: Dict) -> List:
                 value = tokens[idx-1]
                 rule = get_custom_rule(rules, token, UNITS_SINGULAR.index(token), tokens[idx+1:], "singular")
                 datetime_object = compute_datetime(rule, present, UNITS_PLURAL[UNITS_SINGULAR.index(token)], special_value=value)
-                return datetime_object
+                return {"entity": tag, "parsed_value": datetime_object}
             elif token in UNITS_PLURAL:
                 value = tokens[idx-1]
                 rule = get_custom_rule(rules, token, UNITS_PLURAL.index(token), tokens[idx+1:], "plural")
                 datetime_object = compute_datetime(rule, present, UNITS_PLURAL[UNITS_PLURAL.index(token)], special_value=value)
-                return datetime_object
+                return {"entity": tag, "parsed_value": datetime_object}

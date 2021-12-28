@@ -109,6 +109,10 @@ class DateTimeTagger:
             return datetime_objects
         elif isinstance(texts, List) and len(texts) > 1:
             datetime_objects = list(map(lambda text: [self.tag(text)], texts))
-            datetime_objects = [datetime_object[0] if isinstance(datetime_object[0], List) else datetime_object for datetime_object in datetime_objects]
+            datetime_objects = [
+                datetime_object[0]
+                if isinstance(datetime_object[0], List)
+                else datetime_object
+                for datetime_object in datetime_objects
+            ]
             return datetime_objects
-

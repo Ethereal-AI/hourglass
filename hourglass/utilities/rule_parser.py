@@ -16,7 +16,11 @@
 """hourglass rule parser functions"""
 import json
 from hourglass.utilities.paths import RULES_PATH
-from hourglass.utilities.rule_helper_functions import UNITS_PLURAL, UNITS_SINGULAR, tokenize
+from hourglass.utilities.rule_helper_functions import (
+    UNITS_PLURAL,
+    UNITS_SINGULAR,
+    tokenize,
+)
 from dateutil.relativedelta import relativedelta
 from datetime import datetime
 from typing import List, Dict
@@ -91,13 +95,9 @@ def compute_datetime(rule, present: datetime, unit=None, special_value=None):
         if special_value == "a":
             special_value = 1
         if rule.get("operation") == "-":
-            return present - get_relativedelta_function(
-            unit, int(special_value)
-        )
+            return present - get_relativedelta_function(unit, int(special_value))
         elif rule.get("operation") == "+":
-            return present + get_relativedelta_function(
-            unit, int(special_value)
-        )
+            return present + get_relativedelta_function(unit, int(special_value))
         else:
             return present
 
@@ -111,12 +111,30 @@ def get_datetime_object(tag: str, present: datetime, rules: Dict) -> List:
         tokens = tokenize(tag)
         for idx, token in enumerate(tokens):
             if token in UNITS_SINGULAR:
-                value = tokens[idx-1]
-                rule = get_custom_rule(rules, token, UNITS_SINGULAR.index(token), tokens[idx+1:], "singular")
-                datetime_object = compute_datetime(rule, present, UNITS_PLURAL[UNITS_SINGULAR.index(token)], special_value=value)
+                value = tokens[idx - 1]
+                rule = get_custom_rule(
+                    rules,
+                    token,
+                    UNITS_SINGULAR.index(token),
+                    tokens[idx + 1 :],
+                    "singular",
+                )
+                datetime_object = compute_datetime(
+                    rule,
+                    present,
+                    UNITS_PLURAL[UNITS_SINGULAR.index(token)],
+                    special_value=value,
+                )
                 return {"entity": tag, "parsed_value": datetime_object}
             elif token in UNITS_PLURAL:
-                value = tokens[idx-1]
-                rule = get_custom_rule(rules, token, UNITS_PLURAL.index(token), tokens[idx+1:], "plural")
-                datetime_object = compute_datetime(rule, present, UNITS_PLURAL[UNITS_PLURAL.index(token)], special_value=value)
+                value = tokens[idx - 1]
+                rule = get_custom_rule(
+                    rules, token, UNITS_PLURAL.index(token), tokens[idx + 1 :], "plural"
+                )
+                datetime_object = compute_datetime(
+                    rule,
+                    present,
+                    UNITS_PLURAL[UNITS_PLURAL.index(token)],
+                    special_value=value,
+                )
                 return {"entity": tag, "parsed_value": datetime_object}

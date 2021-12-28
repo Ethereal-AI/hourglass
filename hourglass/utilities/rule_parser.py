@@ -71,6 +71,7 @@ def get_custom_rule(rules, token, index, value, plurality="singular", tag_tail):
         rule = rules.get(rule_query)
     else:
         rule = None
+    return rule
 
 
 def get_datetime_object(tag: str, present: datetime, rules: Dict) -> List:

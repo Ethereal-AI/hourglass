@@ -56,5 +56,5 @@ class DateTimeTagger():
 			detector = DateTimeEntityDetector()
 			datetime_entities = detector.get_datetime_entities(texts)
 		elif isinstance(texts, List):
-			datetime_entities = list(map(lambda text: self.tag(text), texts))
+			datetime_entities = list(map(lambda text: [self.tag(text)], texts))
 		return datetime_entities

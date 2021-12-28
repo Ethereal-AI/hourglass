@@ -54,10 +54,13 @@ def load_rules():
 	return rules
 
 def get_datetime_object(tag: str, present: datetime, rules: Dict) -> List:
-	rule = rules.get(tag)
-	if rule.get("operation") == "-":
-		return present - rule.get("relativedelta_function")
-	elif rule.get("operation") == "+":
-		return present + rule.get("relativedelta_function")
-	else:
-		return present
+	try:
+		rule = rules.get(tag)
+		if rule.get("operation") == "-":
+			return present - rule.get("relativedelta_function")
+		elif rule.get("operation") == "+":
+			return present + rule.get("relativedelta_function")
+		else:
+			return present
+	except:
+		return None

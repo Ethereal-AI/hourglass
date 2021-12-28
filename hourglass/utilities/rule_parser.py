@@ -66,7 +66,7 @@ def load_rules():
     return rules
 
 
-def get_custom_rule(rules, token, index, value, tag_tail, plurality="singular"):
+def get_custom_rule(rules, token, index, tag_tail, plurality="singular"):
     if plurality == "singular":
         rule_query = f"<int> {token}({UNITS_PLURAL[index]}) {tag_tail}"
     elif plurality == "plural":
@@ -78,7 +78,7 @@ def get_custom_rule(rules, token, index, value, tag_tail, plurality="singular"):
     return rule
 
 
-def compute_datetime(rule, present: datetime, value):
+def compute_datetime(rule, present: datetime, special_value=None):
     if rule.get("operation") == "-":
         return present - rule.get("relativedelta_function")
     elif rule.get("operation") == "+":
@@ -97,8 +97,8 @@ def get_datetime_object(tag: str, present: datetime, rules: Dict) -> List:
             if token in UNITS_SINGULAR:
                 try:
                     value = tokens[idx-1]
-                    rule = get_custom_rule(rules, token, UNITS_SINGULAR.index(token), value, tokens[idx:], "singular")
-                    datetime_object = compute_datetime(rule, present)
+                    rule = get_custom_rule(rules, token, UNITS_SINGULAR.index(token), tokens[idx:], "singular")
+                    datetime_object = compute_datetime(rule, present, special_value=value)
                 except:
                     value = 0
                     return None
@@ -106,8 +106,8 @@ def get_datetime_object(tag: str, present: datetime, rules: Dict) -> List:
             elif token in UNITS_PLURAL:
                 try:
                     value = tokens[idx-1]
-                    rule = get_custom_rule(rules, token, UNITS_PLURAL.index(token), value, tokens[idx:], "plural")
-                    datetime_object = compute_datetime(rule, present)
+                    rule = get_custom_rule(rules, token, UNITS_PLURAL.index(token), tokens[idx:], "plural")
+                    datetime_object = compute_datetime(rule, present, special_value=value)
                 except:
                     value = 0
                     return None

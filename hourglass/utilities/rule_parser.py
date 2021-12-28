@@ -71,6 +71,7 @@ def get_custom_rule(rules, token, index, tag_tail, plurality="singular"):
         rule_query = f"<int> {token}({UNITS_PLURAL[index]}) {tag_tail}"
     elif plurality == "plural":
         rule_query = f"<int> {UNITS_SINGULAR[index]}({token}) {tag_tail}"
+    print(rule_query)
     if rule_query in rules:
         rule = rules.get(rule_query)
     else:
@@ -111,7 +112,7 @@ def get_datetime_object(tag: str, present: datetime, rules: Dict) -> List:
             if token in UNITS_SINGULAR:
                 try:
                     value = tokens[idx-1]
-                    rule = get_custom_rule(rules, token, UNITS_SINGULAR.index(token), tokens[idx:], "singular")
+                    rule = get_custom_rule(rules, token, UNITS_SINGULAR.index(token), tokens[idx+1:], "singular")
                     datetime_object = compute_datetime(rule, present, special_value=value)
                 except:
                     value = 0
@@ -120,7 +121,7 @@ def get_datetime_object(tag: str, present: datetime, rules: Dict) -> List:
             elif token in UNITS_PLURAL:
                 try:
                     value = tokens[idx-1]
-                    rule = get_custom_rule(rules, token, UNITS_PLURAL.index(token), tokens[idx:], "plural")
+                    rule = get_custom_rule(rules, token, UNITS_PLURAL.index(token), tokens[idx+1:], "plural")
                     datetime_object = compute_datetime(rule, present, special_value=value)
                 except:
                     value = 0

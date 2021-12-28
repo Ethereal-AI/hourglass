@@ -74,15 +74,19 @@ def get_custom_rule(rules, token, index, value, plurality="singular", tag_tail):
     return rule
 
 
+def compute_datetime(rule, present: datetime):
+    if rule.get("operation") == "-":
+        return present - rule.get("relativedelta_function")
+    elif rule.get("operation") == "+":
+        return present + rule.get("relativedelta_function")
+    else:
+        return present
+
+
 def get_datetime_object(tag: str, present: datetime, rules: Dict) -> List:
     try:
         rule = rules.get(tag)
-        if rule.get("operation") == "-":
-            return present - rule.get("relativedelta_function")
-        elif rule.get("operation") == "+":
-            return present + rule.get("relativedelta_function")
-        else:
-            return present
+        datetime_object = compute_datetime(rule, present)
     except:
         tokens = tokenize(tag)
         for idx, token in enumerate(tokens):
@@ -90,6 +94,7 @@ def get_datetime_object(tag: str, present: datetime, rules: Dict) -> List:
                 try:
                     value = tokens[idx-1]
                     rule = self.get_custom_rule(rules, token, UNITS_SINGULAR.index(token), value, "singular", tokens[idx:])
+                    datetime_object = compute_datetime(rule, present)
                 except:
                     value = 0
                     return None
@@ -97,6 +102,8 @@ def get_datetime_object(tag: str, present: datetime, rules: Dict) -> List:
                 try:
                     value = tokens[idx-1]
                     rule = self.get_custom_rule(rules, token, UNITS_PLURAL.index(token), value, "plural", tokens[idx:])
+                    datetime_object = compute_datetime(rule, present)
                 except:
                     value = 0
                     return None
+            return datetime_object

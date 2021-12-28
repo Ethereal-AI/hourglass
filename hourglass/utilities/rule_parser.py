@@ -75,7 +75,6 @@ def get_custom_rule(rules, token, index, tag_head, tag_tail, plurality="singular
         tag_head_string = " ".join(tag_head) + " "
     else:
         tag_head_string = ""
-    print(tag_head_string)
     if len(tag_tail) != 0:
         tag_tail_string = " " + " ".join(tag_tail)
     else:

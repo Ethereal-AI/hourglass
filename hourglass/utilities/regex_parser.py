@@ -16,10 +16,37 @@
 """hourglass regex parser functions"""
 import json
 from hourglass.utilities.paths import RULES_PATH
+from dateutil.relativedelta import relativedelta
+
+def get_relativedelta_function(unit: str, value: int) -> relativedelta:
+	if unit == "microseconds":
+		return relativedelta(microseconds=value)
+	elif unit == "seconds":
+		return relativedelta(seconds=value)
+	elif unit == "minutes":
+		return relativedelta(minutes=value)
+	elif unit == "hours":
+		return relativedelta(hours=value)
+	elif unit == "days":
+		return relativedelta(days=value)
+	elif unit == "weeks":
+		return relativedelta(weeks=value)
+	elif unit == "months":
+		return relativedelta(months=value)
+	elif unit == "years":
+		return relativedelta(years=value)
+	elif unit == "decades":
+		return relativedelta(years=value*10)
+	elif unit == "centuries":
+		return relativedelta(years=value*100)
+	else:
+		return None
 
 def load_rules():
-	data = list()
+	rules = dict()
 	with open(RULES_PATH) as f:
 		for line in f:
-			data.append(json.loads(line))
-	print(data)
+			rule = json.loads(line)
+			properties = {"operation": rule.get("operation"), "relativedelta_function": get_relativedelta_function(rule.get("relativedelta"), rule.get("value"))}
+			rules[rule.get("pattern")] = properties
+	return rules

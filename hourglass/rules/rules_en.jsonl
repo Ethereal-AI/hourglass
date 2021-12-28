@@ -1,3 +1,3 @@
-{pattern: "yesterday", operation: "-", relativedelta: "days", value: 1}
-{pattern: "today", operation: "", relative: "", value: 0}
-{pattern: "tomorrow", operation: "+", relativedelta: "days", value: 1}
+{"pattern": "yesterday", "operation": "-", "relativedelta": "days", "value": 1}
+{"pattern": "today", "operation": "", "relative": "", "value": 0}
+{"pattern": "tomorrow", "operation": "+", "relativedelta": "days", "value": 1}

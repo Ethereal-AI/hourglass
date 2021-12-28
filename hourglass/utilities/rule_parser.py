@@ -62,6 +62,10 @@ def load_rules():
     return rules
 
 
+def get_custom_rule(rules, value):
+    pass
+
+
 def get_datetime_object(tag: str, present: datetime, rules: Dict) -> List:
     try:
         rule = rules.get(tag)
@@ -73,3 +77,11 @@ def get_datetime_object(tag: str, present: datetime, rules: Dict) -> List:
             return present
     except:
         tokens = tokenize(tag)
+        for idx, token in enumerate(tokens):
+            if token in UNITS:
+                try:
+                    value = tokens[idx-1]
+                    rule = self.get_custom_rule(rules, value)
+                except:
+                    value = 0
+                    return None

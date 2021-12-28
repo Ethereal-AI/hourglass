@@ -101,10 +101,14 @@ class DateTimeTagger:
         detector = DateTimeEntityDetector()
         if isinstance(texts, str):
             datetime_entities = detector.get_datetime_entities(texts)
+            datetime_objects = self.fetch_all_datetime_objects(datetime_entities)
+            return datetime_objects
         elif isinstance(texts, List) and len(texts) == 1:
             datetime_entities = detector.get_datetime_entities(texts[0])
+            datetime_objects = self.fetch_all_datetime_objects(datetime_entities)
+            return datetime_objects
         elif isinstance(texts, List) and len(texts) > 1:
-            datetime_entities = list(map(lambda text: [self.tag(text)], texts))
-        print(datetime_entities)
-        datetime_objects = self.fetch_all_datetime_objects(datetime_entities)
-        return datetime_objects
+            datetime_objects = list(map(lambda text: [self.tag(text)], texts))
+            datetime_objects = [datetime_object[0] if isinstance(datetime_object[0], List) else datetime_object for datetime_object in datetime_objects]
+            return datetime_objects
+

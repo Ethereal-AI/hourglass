@@ -15,3 +15,9 @@
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 UNITS = ("microseconds", "seconds", "minutes", "hours", "days", "weeks", "months", "years", "decades", "centuries")
+
+def tokenize(tag) -> Dict:
+    if " " in tag:
+        return tag.split(" ")
+    else:
+        return [tag]

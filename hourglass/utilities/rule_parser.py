@@ -16,16 +16,10 @@
 """hourglass rule parser functions"""
 import json
 from hourglass.utilities.paths import RULES_PATH
+from hourglass.utilities.rule_helper_functions import UNITS, tokenize
 from dateutil.relativedelta import relativedelta
 from datetime import datetime
 from typing import List, Dict
-
-
-def tokenize(tag) -> Dict:
-    if " " in tag:
-        return tag.split(" ")
-    else:
-        return [tag]
 
 
 def get_relativedelta_function(unit: str, value: int) -> relativedelta:
@@ -78,4 +72,4 @@ def get_datetime_object(tag: str, present: datetime, rules: Dict) -> List:
         else:
             return present
     except:
-        tokens = self.tokenize(tag)
+        tokens = tokenize(tag)

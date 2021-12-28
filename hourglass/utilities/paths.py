@@ -15,4 +15,8 @@
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 import os
 
-RULES_PATH = os.path.join(os.path.dirname(os.path.dirname(os.path.realpath(__file__))), "rules", "rules_en.jsonl")
+RULES_PATH = os.path.join(
+    os.path.dirname(os.path.dirname(os.path.realpath(__file__))),
+    "rules",
+    "rules_en.jsonl",
+)

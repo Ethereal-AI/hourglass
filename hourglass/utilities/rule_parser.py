@@ -20,47 +20,55 @@ from dateutil.relativedelta import relativedelta
 from datetime import datetime
 from typing import List, Dict
 
+
 def get_relativedelta_function(unit: str, value: int) -> relativedelta:
-	if unit == "microseconds":
-		return relativedelta(microseconds=value)
-	elif unit == "seconds":
-		return relativedelta(seconds=value)
-	elif unit == "minutes":
-		return relativedelta(minutes=value)
-	elif unit == "hours":
-		return relativedelta(hours=value)
-	elif unit == "days":
-		return relativedelta(days=value)
-	elif unit == "weeks":
-		return relativedelta(weeks=value)
-	elif unit == "months":
-		return relativedelta(months=value)
-	elif unit == "years":
-		return relativedelta(years=value)
-	elif unit == "decades":
-		return relativedelta(years=value*10)
-	elif unit == "centuries":
-		return relativedelta(years=value*100)
-	else:
-		return None
+    if unit == "microseconds":
+        return relativedelta(microseconds=value)
+    elif unit == "seconds":
+        return relativedelta(seconds=value)
+    elif unit == "minutes":
+        return relativedelta(minutes=value)
+    elif unit == "hours":
+        return relativedelta(hours=value)
+    elif unit == "days":
+        return relativedelta(days=value)
+    elif unit == "weeks":
+        return relativedelta(weeks=value)
+    elif unit == "months":
+        return relativedelta(months=value)
+    elif unit == "years":
+        return relativedelta(years=value)
+    elif unit == "decades":
+        return relativedelta(years=value * 10)
+    elif unit == "centuries":
+        return relativedelta(years=value * 100)
+    else:
+        return None
+
 
 def load_rules():
-	rules = dict()
-	with open(RULES_PATH) as f:
-		for line in f:
-			rule = json.loads(line)
-			properties = {"operation": rule.get("operation"), "relativedelta_function": get_relativedelta_function(rule.get("relativedelta"), rule.get("value"))}
-			rules[rule.get("pattern")] = properties
-	return rules
+    rules = dict()
+    with open(RULES_PATH) as f:
+        for line in f:
+            rule = json.loads(line)
+            properties = {
+                "operation": rule.get("operation"),
+                "relativedelta_function": get_relativedelta_function(
+                    rule.get("relativedelta"), rule.get("value")
+                ),
+            }
+            rules[rule.get("pattern")] = properties
+    return rules
+
 
 def get_datetime_object(tag: str, present: datetime, rules: Dict) -> List:
-	try:
-		rule = rules.get(tag)
-		if rule.get("operation") == "-":
-			return present - rule.get("relativedelta_function")
-		elif rule.get("operation") == "+":
-			return present + rule.get("relativedelta_function")
-		else:
-			return present
-	except:
-		return None
+    try:
+        rule = rules.get(tag)
+        if rule.get("operation") == "-":
+            return present - rule.get("relativedelta_function")
+        elif rule.get("operation") == "+":
+            return present + rule.get("relativedelta_function")
+        else:
+            return present
+    except:
+        return None

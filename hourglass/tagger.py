@@ -25,16 +25,16 @@ __author__ = "Ethereal AI"
 
 
 class DateTimeTagger():
-	def __init__(self, now: datetime.datetime = None):
+	def __init__(self, now: datetime = None):
 		"""
 		Builds the datetime tagger.
 
 		Parameter
 		---------
-		now: datetime.datetime
+		now: datetime
 			The datetime object to use as reference for the present.
 		"""
-		if now not None:
+		if now != None:
 			use_freezegun = True
 			dummy_present = now
 		else:

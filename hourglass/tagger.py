@@ -17,6 +17,8 @@
 from dateutil import parser
 from dateutil.relativedelta import relativedelta
 import freezegun
+from datetime import datetime
+from typing import List, Dict, Union
 
 __author__ = "Ethereal AI"
 
@@ -29,7 +31,7 @@ class DateTimeTagger():
 		Parameter
 		---------
 		now: datetime.datetime
-			The datetime object to use as
+			The datetime object to use as reference for the present.
 		"""
 		if now not None:
 			use_freezegun = True
@@ -39,3 +41,14 @@ class DateTimeTagger():
 			dummy_present = None
 		self.use_freezegun = use_freezegun
 		self.dummy_present = dummy_present
+
+	def tag(self, texts: Union[List, str]) -> Union[Dict, List]:
+		"""
+		Tags the input text or texts via NER and regex rules.
+
+		Parameter
+		---------
+		texts: Union[List, str]
+			The input text or texts to be tagged.
+		"""
+		pass

@@ -13,13 +13,6 @@
 #
 # You should have received a copy of the GNU General Public License
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
-"""hourglass regex parser functions"""
-import json
-from hourglass.utilities.paths import RULES_PATH
+import os
 
-def load_rules():
-	data = list()
-	with open(RULES_PATH) as f:
-		for line in f:
-			data.append(json.loads(line))
-	print(data)
+RULES_PATH = os.path.join(os.path.dirname(os.path.dirname(os.path.realpath(__file__))), "rules", "rules_en.jsonl")

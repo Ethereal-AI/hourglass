@@ -1,3 +1,5 @@
 {"pattern": "yesterday", "operation": "-", "relativedelta": "days", "value": 1}
 {"pattern": "today", "operation": "", "relativedelta": "", "value": 0}
 {"pattern": "tomorrow", "operation": "+", "relativedelta": "days", "value": 1}
+{"pattern": "<int> day(days) ago", "operation": "-", "relativedelta": "days", "value": "<int>"}
+{"pattern": "<int> day(days) ago", "operation": "-", "relativedelta": "days", "value": "<int>"}

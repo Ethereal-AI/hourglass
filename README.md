@@ -7,6 +7,7 @@ Detect and parse date-time entities in text.
 Option 1:<br>
 1. Clone the repository and run `python setup.py build` and then `python setup.py install`.<br>
 2. Run `python -m spacy download en_core_web_sm`.<br><br>
+
 Option 2:<br>
 1. Run pip install git+ssh://git@github.com:Ethereal-AI/hourglass.git<br>
 2. Run `python -m spacy download en_core_web_sm`.<br><br>

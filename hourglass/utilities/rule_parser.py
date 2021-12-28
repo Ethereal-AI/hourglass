@@ -70,12 +70,21 @@ def load_rules():
     return rules
 
 
-def get_custom_rule(rules, token, index, tag_tail, plurality="singular"):
+def get_custom_rule(rules, token, index, tag_head, tag_tail, plurality="singular"):
+    if len(tag_head) != 0:
+        tag_head_string = " ".join(tag_head) + " "
+    else:
+        tag_head_string = ""
+    if len(tag_tail) != 0:
+        tag_tail_string = " " + " ".join(tag_tail)
+    else:
+        tag_tail_string = ""
+
     tag_tail_string = " ".join(tag_tail)
     if plurality == "singular":
-        rule_query = f"<int> {token}({UNITS_PLURAL[index]}) {tag_tail_string}"
+        rule_query = f"{tag_head_string}<int> {token}({UNITS_PLURAL[index]}){tag_tail_string}"
     elif plurality == "plural":
-        rule_query = f"<int> {UNITS_SINGULAR[index]}({token}) {tag_tail_string}"
+        rule_query = f"{tag_head_string}<int> {UNITS_SINGULAR[index]}({token}){tag_tail_string}"
     if rule_query in rules:
         rule = rules.get(rule_query)
     else:

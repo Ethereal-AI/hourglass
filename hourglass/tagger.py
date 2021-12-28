@@ -14,12 +14,11 @@
 # You should have received a copy of the GNU General Public License
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 """hourglass datetime tagger class"""
-from dateutil import parser
-from dateutil.relativedelta import relativedelta
 import freezegun
 from datetime import datetime
-from typing import List, Dict, Union
+from typing import List, Dict, Tuple, Union
 from hourglass.utilities.detector import DateTimeEntityDetector
+from hourglass.utilities.regex_parser import get_datetime_object, load_rules
 
 __author__ = "Ethereal AI"
 
@@ -35,13 +34,23 @@ class DateTimeTagger():
 			The datetime object to use as reference for the present.
 		"""
 		if now != None:
-			use_freezegun = True
 			dummy_present = now
 		else:
-			use_freezegun = False
 			dummy_present = None
-		self.use_freezegun = use_freezegun
 		self.dummy_present = dummy_present
+		self.rules = load_rules()
+
+	def fetch_all_datetime_objects(self, datetime_entities):
+		if self.dummy_present != None:
+			if isinstance(datetime_entities, Tuple):
+				datetime_objects = get_datetime_object(datetime_entities[0], self.dummy_present, self.rules)
+			elif isinstance(datetime_entities, List):
+				for substructure in datetime_entities:
+					if isinstance(substructure, List):
+						datetime_objects = fetch_all_datetime_objects(substructure)
+					else:
+						datetime_objects = get_datetime_object(datetime_entities[0], self.dummy_present, self.rules)
+			return datetime_objects
 
 	def tag(self, texts: Union[List, str]) -> Union[Dict, List]:
 		"""
@@ -57,4 +66,6 @@ class DateTimeTagger():
 			datetime_entities = detector.get_datetime_entities(texts)
 		elif isinstance(texts, List) and len(texts) > 1:
 			datetime_entities = list(map(lambda text: [self.tag(text)], texts))
-		return datetime_entities
+		datetime_objects = self.fetch_all_datetime_objects(datetime_entities)
+		return datetime_objects
+

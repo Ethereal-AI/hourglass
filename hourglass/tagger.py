@@ -39,19 +39,36 @@ class DateTimeTagger():
 		self.dummy_present = dummy_present
 		self.rules = load_rules()
 
+	def fetch_with_dummy(self, datetime_entities, datetime_objects):
+		if isinstance(datetime_entities, Tuple):
+			datetime_objects = get_datetime_object(datetime_entities[0], self.dummy_present, self.rules)
+		elif isinstance(datetime_entities, List):
+			for substructure in datetime_entities:
+				if isinstance(substructure, List):
+					datetime_objects.append(self.fetch_all_datetime_objects(substructure))
+				else:
+					datetime_objects.append(get_datetime_object(substructure[0], self.dummy_present, self.rules))
+		return datetime_objects
+
+	def fetch_without_dummy(self, datetime_entities, datetime_objects):
+		if isinstance(datetime_entities, Tuple):
+			datetime_objects = get_datetime_object(datetime_entities[0], datetime.now(), self.rules)
+		elif isinstance(datetime_entities, List):
+			for substructure in datetime_entities:
+				if isinstance(substructure, List):
+					datetime_objects.append(self.fetch_all_datetime_objects(substructure))
+				else:
+					datetime_objects.append(get_datetime_object(substructure[0], datetime.now(), self.rules))
+		return datetime_objects
+
 	def fetch_all_datetime_objects(self, datetime_entities: Union[Tuple, List]) -> Union[List, datetime]:
 		datetime_objects = list()
 		if self.dummy_present != None:
-			if isinstance(datetime_entities, Tuple):
-				datetime_objects = get_datetime_object(datetime_entities[0], self.dummy_present, self.rules)
-			elif isinstance(datetime_entities, List):
-				for substructure in datetime_entities:
-					if isinstance(substructure, List):
-						datetime_objects.append(fetch_all_datetime_objects(substructure))
-					else:
-						print(substructure)
-						datetime_objects.append(get_datetime_object(substructure[0], self.dummy_present, self.rules))
-			return datetime_objects
+			datetime_objects = self.fetch_with_dummy(datetime_entities, datetime_objects)
+		else:
+			datetime_objects = self.fetch_without_dummy(datetime_entities, datetime_objects)
+		return datetime_objects
+
 
 	def tag(self, texts: Union[List, str]) -> Union[List, datetime]:
 		"""
@@ -67,7 +84,6 @@ class DateTimeTagger():
 			datetime_entities = detector.get_datetime_entities(texts)
 		elif isinstance(texts, List) and len(texts) > 1:
 			datetime_entities = list(map(lambda text: [self.tag(text)], texts))
-		print(datetime_entities)
 		datetime_objects = self.fetch_all_datetime_objects(datetime_entities)
 		return datetime_objects
 

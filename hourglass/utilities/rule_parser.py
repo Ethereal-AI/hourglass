@@ -16,7 +16,7 @@
 """hourglass rule parser functions"""
 import json
 from hourglass.utilities.paths import RULES_PATH
-from hourglass.utilities.rule_helper_functions import UNITS, tokenize
+from hourglass.utilities.rule_helper_functions import UNITS_PLURAL, UNITS_SINGULAR, tokenize
 from dateutil.relativedelta import relativedelta
 from datetime import datetime
 from typing import List, Dict
@@ -62,8 +62,8 @@ def load_rules():
     return rules
 
 
-def get_custom_rule(rules, value):
-    pass
+def get_custom_rule(rules, token, value):
+    rule_query = f"<int> {token}"
 
 
 def get_datetime_object(tag: str, present: datetime, rules: Dict) -> List:
@@ -78,10 +78,10 @@ def get_datetime_object(tag: str, present: datetime, rules: Dict) -> List:
     except:
         tokens = tokenize(tag)
         for idx, token in enumerate(tokens):
-            if token in UNITS:
+            if token in UNITS_SINGULAR or token in UNITS_PLURAL:
                 try:
                     value = tokens[idx-1]
-                    rule = self.get_custom_rule(rules, value)
+                    rule = self.get_custom_rule(rules, token, value)
                 except:
                     value = 0
                     return None

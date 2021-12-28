@@ -67,11 +67,11 @@ def load_rules():
 
 
 def get_custom_rule(rules, token, index, tag_tail, plurality="singular"):
+    tag_tail_string = " ".join(tag_tail)
     if plurality == "singular":
-        rule_query = f"<int> {token}({UNITS_PLURAL[index]}) {tag_tail}"
+        rule_query = f"<int> {token}({UNITS_PLURAL[index]}) {tag_tail_string}"
     elif plurality == "plural":
-        rule_query = f"<int> {UNITS_SINGULAR[index]}({token}) {tag_tail}"
-    print(rule_query)
+        rule_query = f"<int> {UNITS_SINGULAR[index]}({token}) {tag_tail_string}"
     if rule_query in rules:
         rule = rules.get(rule_query)
     else:
@@ -79,7 +79,7 @@ def get_custom_rule(rules, token, index, tag_tail, plurality="singular"):
     return rule
 
 
-def compute_datetime(rule, present: datetime, special_value=None):
+def compute_datetime(rule, present: datetime, unit=None, special_value=None):
     if special_value == None:
         if rule.get("operation") == "-":
             return present - rule.get("relativedelta_function")
@@ -92,11 +92,11 @@ def compute_datetime(rule, present: datetime, special_value=None):
             special_value = 1
         if rule.get("operation") == "-":
             return present - get_relativedelta_function(
-            rule.get("relativedelta"), special_value
+            unit, int(special_value)
         )
         elif rule.get("operation") == "+":
             return present + get_relativedelta_function(
-            rule.get("relativedelta"), special_value
+            unit, int(special_value)
         )
         else:
             return present
@@ -106,24 +106,17 @@ def get_datetime_object(tag: str, present: datetime, rules: Dict) -> List:
     try:
         rule = rules.get(tag)
         datetime_object = compute_datetime(rule, present)
+        return datetime_object
     except:
         tokens = tokenize(tag)
         for idx, token in enumerate(tokens):
             if token in UNITS_SINGULAR:
-                try:
-                    value = tokens[idx-1]
-                    rule = get_custom_rule(rules, token, UNITS_SINGULAR.index(token), tokens[idx+1:], "singular")
-                    datetime_object = compute_datetime(rule, present, special_value=value)
-                except:
-                    value = 0
-                    return None
+                value = tokens[idx-1]
+                rule = get_custom_rule(rules, token, UNITS_SINGULAR.index(token), tokens[idx+1:], "singular")
+                datetime_object = compute_datetime(rule, present, UNITS_PLURAL[UNITS_SINGULAR.index(token)], special_value=value)
                 return datetime_object
             elif token in UNITS_PLURAL:
-                try:
-                    value = tokens[idx-1]
-                    rule = get_custom_rule(rules, token, UNITS_PLURAL.index(token), tokens[idx+1:], "plural")
-                    datetime_object = compute_datetime(rule, present, special_value=value)
-                except:
-                    value = 0
-                    return None
+                value = tokens[idx-1]
+                rule = get_custom_rule(rules, token, UNITS_PLURAL.index(token), tokens[idx+1:], "plural")
+                datetime_object = compute_datetime(rule, present, UNITS_PLURAL[UNITS_PLURAL.index(token)], special_value=value)
                 return datetime_object

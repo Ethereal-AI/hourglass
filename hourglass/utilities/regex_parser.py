@@ -17,6 +17,8 @@
 import json
 from hourglass.utilities.paths import RULES_PATH
 from dateutil.relativedelta import relativedelta
+from datetime import datetime
+from typing import List, Dict
 
 def get_relativedelta_function(unit: str, value: int) -> relativedelta:
 	if unit == "microseconds":
@@ -50,3 +52,12 @@ def load_rules():
 			properties = {"operation": rule.get("operation"), "relativedelta_function": get_relativedelta_function(rule.get("relativedelta"), rule.get("value"))}
 			rules[rule.get("pattern")] = properties
 	return rules
+
+def get_datetime_object(tag: str, present: datetime, rules: Dict) -> List:
+	rule = rules.get(tag)
+	if rule.get("operation") == "-":
+		return present - rule.get("relativedelta_function")
+	elif rule.get("operation") == "+":
+		return present + rule.get("relativedelta_function")
+	else:
+		return present

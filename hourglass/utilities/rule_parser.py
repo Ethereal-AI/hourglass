@@ -75,6 +75,7 @@ def get_custom_rule(rules, token, index, tag_head, tag_tail, plurality="singular
         tag_head_string = " ".join(tag_head) + " "
     else:
         tag_head_string = ""
+    print(tag_head_string)
     if len(tag_tail) != 0:
         tag_tail_string = " " + " ".join(tag_tail)
     else:
@@ -127,7 +128,7 @@ def get_datetime_object(tag: str, present: datetime, rules: Dict) -> List:
             if token in UNITS_SINGULAR:
                 value = tokens[idx - 1]
                 try:
-                    tag_head = tokens[: idx - 2]
+                    tag_head = tokens[: idx - 1]
                 except:
                     tag_head = []
                 rule = get_custom_rule(
@@ -148,7 +149,7 @@ def get_datetime_object(tag: str, present: datetime, rules: Dict) -> List:
             elif token in UNITS_PLURAL:
                 value = tokens[idx - 1]
                 try:
-                    tag_head = tokens[: idx - 2]
+                    tag_head = tokens[: idx - 1]
                 except:
                     tag_head = []
                 rule = get_custom_rule(

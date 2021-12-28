@@ -52,9 +52,9 @@ class DateTimeTagger():
 		texts: Union[List, str]
 			The input text or texts to be tagged.
 		"""
-		if isinstance(texts, str):
+		if isinstance(texts, str) or (isinstance(texts, List) and len(texts) == 1):
 			detector = DateTimeEntityDetector()
 			datetime_entities = detector.get_datetime_entities(texts)
-		elif isinstance(texts, List):
+		elif isinstance(texts, List) and len(texts) > 1:
 			datetime_entities = list(map(lambda text: [self.tag(text)], texts))
 		return datetime_entities

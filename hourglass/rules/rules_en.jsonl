@@ -3,3 +3,5 @@
 {"pattern": "tomorrow", "operation": "+", "relativedelta": "days", "value": 1}
 {"pattern": "<int> day(days) ago", "operation": "-", "relativedelta": "days", "value": "<int>"}
 {"pattern": "<int> day(days) from now", "operation": "+", "relativedelta": "days", "value": "<int>"}
+{"pattern": "the next <int> day(days)", "operation": "+", "relativedelta": "days", "value": "<int>"}
+{"pattern": "<int> day(days)", "operation": "+", "relativedelta": "days", "value": "<int>"}

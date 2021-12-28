@@ -79,8 +79,6 @@ def get_custom_rule(rules, token, index, tag_head, tag_tail, plurality="singular
         tag_tail_string = " " + " ".join(tag_tail)
     else:
         tag_tail_string = ""
-
-    tag_tail_string = " ".join(tag_tail)
     if plurality == "singular":
         rule_query = f"{tag_head_string}<int> {token}({UNITS_PLURAL[index]}){tag_tail_string}"
     elif plurality == "plural":
@@ -88,7 +86,14 @@ def get_custom_rule(rules, token, index, tag_head, tag_tail, plurality="singular
     if rule_query in rules:
         rule = rules.get(rule_query)
     else:
-        rule = None
+        if plurality == "singular":
+            rule_query = f"<int> {token}({UNITS_PLURAL[index]}){tag_tail_string}"
+        elif plurality == "plural":
+            rule_query = f"<int> {UNITS_SINGULAR[index]}({token}){tag_tail_string}"
+        if rule_query in rules:
+            rule = rules.get(rule_query)
+        else:
+            rule = None
     return rule
 
 
@@ -121,10 +126,15 @@ def get_datetime_object(tag: str, present: datetime, rules: Dict) -> List:
         for idx, token in enumerate(tokens):
             if token in UNITS_SINGULAR:
                 value = tokens[idx - 1]
+                try:
+                    tag_head = tokens[: idx - 2]
+                except:
+                    tag_head = []
                 rule = get_custom_rule(
                     rules,
                     token,
                     UNITS_SINGULAR.index(token),
+                    tag_head,
                     tokens[idx + 1 :],
                     "singular",
                 )
@@ -137,8 +147,12 @@ def get_datetime_object(tag: str, present: datetime, rules: Dict) -> List:
                 return {"entity": tag, "parsed_value": datetime_object}
             elif token in UNITS_PLURAL:
                 value = tokens[idx - 1]
+                try:
+                    tag_head = tokens[: idx - 2]
+                except:
+                    tag_head = []
                 rule = get_custom_rule(
-                    rules, token, UNITS_PLURAL.index(token), tokens[idx + 1 :], "plural"
+                    rules, token, UNITS_PLURAL.index(token), tag_head, tokens[idx + 1 :], "plural"
                 )
                 datetime_object = compute_datetime(
                     rule,

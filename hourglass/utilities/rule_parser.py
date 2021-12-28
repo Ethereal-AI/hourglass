@@ -21,6 +21,13 @@ from datetime import datetime
 from typing import List, Dict
 
 
+def tokenize(tag) -> Dict:
+    if " " in tag:
+        return tag.split(" ")
+    else:
+        return [tag]
+
+
 def get_relativedelta_function(unit: str, value: int) -> relativedelta:
     if unit == "microseconds":
         return relativedelta(microseconds=value)
@@ -71,4 +78,4 @@ def get_datetime_object(tag: str, present: datetime, rules: Dict) -> List:
         else:
             return present
     except:
-        return None
+        tokens = self.tokenize(tag)

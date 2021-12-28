@@ -103,5 +103,6 @@ class DateTimeTagger:
             datetime_entities = detector.get_datetime_entities(texts)
         elif isinstance(texts, List) and len(texts) > 1:
             datetime_entities = list(map(lambda text: [self.tag(text)], texts))
+        print(datetime_entities)
         datetime_objects = self.fetch_all_datetime_objects(datetime_entities)
         return datetime_objects

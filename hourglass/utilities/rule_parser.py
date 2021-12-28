@@ -79,12 +79,26 @@ def get_custom_rule(rules, token, index, tag_tail, plurality="singular"):
 
 
 def compute_datetime(rule, present: datetime, special_value=None):
-    if rule.get("operation") == "-":
-        return present - rule.get("relativedelta_function")
-    elif rule.get("operation") == "+":
-        return present + rule.get("relativedelta_function")
+    if special_value == None:
+        if rule.get("operation") == "-":
+            return present - rule.get("relativedelta_function")
+        elif rule.get("operation") == "+":
+            return present + rule.get("relativedelta_function")
+        else:
+            return present
     else:
-        return present
+        if special_value == "a":
+            special_value = 1
+        if rule.get("operation") == "-":
+            return present - get_relativedelta_function(
+            rule.get("relativedelta"), special_value
+        )
+        elif rule.get("operation") == "+":
+            return present + get_relativedelta_function(
+            rule.get("relativedelta"), special_value
+        )
+        else:
+            return present
 
 
 def get_datetime_object(tag: str, present: datetime, rules: Dict) -> List:

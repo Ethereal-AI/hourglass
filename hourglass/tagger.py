@@ -17,7 +17,7 @@
 from datetime import datetime
 from typing import List, Dict, Tuple, Union
 from hourglass.utilities.detector import DateTimeEntityDetector
-from hourglass.utilities.regex_parser import get_datetime_object, load_rules
+from hourglass.utilities.rule_parser import get_datetime_object, load_rules
 
 __author__ = "Ethereal AI"
 
@@ -53,7 +53,7 @@ class DateTimeTagger():
 
 	def tag(self, texts: Union[List, str]) -> Union[Dict, List]:
 		"""
-		Tags the input text or texts via NER and regex rules.
+		Tags the input text or texts via NER and rule rules.
 
 		Parameter
 		---------

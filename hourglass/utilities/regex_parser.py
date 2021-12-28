@@ -13,7 +13,7 @@
 #
 # You should have received a copy of the GNU General Public License
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
-"""hourglass regex parser functions"""
+"""hourglass rule parser functions"""
 import json
 from hourglass.utilities.paths import RULES_PATH
 from dateutil.relativedelta import relativedelta

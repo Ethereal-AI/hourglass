@@ -14,7 +14,29 @@
 # You should have received a copy of the GNU General Public License
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
-UNITS = ("microseconds", "seconds", "minutes", "hours", "days", "weeks", "months", "years", "decades", "centuries")
+UNITS = (
+    "microseconds",
+    "seconds",
+    "minutes",
+    "hours",
+    "days",
+    "weeks",
+    "months",
+    "years",
+    "decades",
+    "centuries",
+    "microsecond",
+    "second",
+    "minute",
+    "hour",
+    "day",
+    "week",
+    "month",
+    "year",
+    "decade",
+    "century",
+)
+
 
 def tokenize(tag) -> Dict:
     if " " in tag:

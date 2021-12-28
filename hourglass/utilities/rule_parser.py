@@ -78,10 +78,17 @@ def get_datetime_object(tag: str, present: datetime, rules: Dict) -> List:
     except:
         tokens = tokenize(tag)
         for idx, token in enumerate(tokens):
-            if token in UNITS_SINGULAR or token in UNITS_PLURAL:
+            if token in UNITS_SINGULAR:
                 try:
                     value = tokens[idx-1]
-                    rule = self.get_custom_rule(rules, token, value)
+                    rule = self.get_custom_rule(rules, token, value, "singular")
+                except:
+                    value = 0
+                    return None
+            if token in UNITS_PLURAL:
+                try:
+                    value = tokens[idx-1]
+                    rule = self.get_custom_rule(rules, token, value, "plural")
                 except:
                     value = 0
                     return None

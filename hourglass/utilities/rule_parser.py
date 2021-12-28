@@ -52,10 +52,14 @@ def load_rules():
     with open(RULES_PATH) as f:
         for line in f:
             rule = json.loads(line)
+            if isinstance(rule.get("value"), str):
+                value = 0
+            else:
+                value = rule.get("value")
             properties = {
                 "operation": rule.get("operation"),
                 "relativedelta_function": get_relativedelta_function(
-                    rule.get("relativedelta"), rule.get("value")
+                    rule.get("relativedelta"), value
                 ),
             }
             rules[rule.get("pattern")] = properties
@@ -74,7 +78,7 @@ def get_custom_rule(rules, token, index, value, tag_tail, plurality="singular"):
     return rule
 
 
-def compute_datetime(rule, present: datetime):
+def compute_datetime(rule, present: datetime, value):
     if rule.get("operation") == "-":
         return present - rule.get("relativedelta_function")
     elif rule.get("operation") == "+":

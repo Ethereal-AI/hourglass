@@ -10,7 +10,7 @@ setup(
     author=__author__,
     description="Detect and parse date-time entities in text.",
     install_requires=[
-        "spacy>=3.1.2",
+        "spacy>=3.2.1",
         "python-dateutil>=2.8.1",
     ],
 )

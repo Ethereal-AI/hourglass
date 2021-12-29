@@ -5,7 +5,7 @@ Detect and parse date-time entities in text.
 ### Installing the package
 1. Clone the repository.<br>
 2. Run `pip install -e .` inside the local repository.<br>
-3. Run `python -m spacy download en_core_web_sm==3.2.0`.<br><br>
+3. Run `python -m spacy download en_core_web_sm`.<br><br>
 
 ### Usage
 

@@ -9,3 +9,7 @@
 {"pattern": "<int> hour(hours) from now", "operation": "+", "relativedelta": "hours", "value": "<int>"}
 {"pattern": "the next <int> hour(hours)", "operation": "+", "relativedelta": "hours", "value": "<int>"}
 {"pattern": "<int> hour(hours)", "operation": "+", "relativedelta": "hours", "value": "<int>"}
+{"pattern": "<int> minute(minutes) ago", "operation": "-", "relativedelta": "minutes", "value": "<int>"}
+{"pattern": "<int> minute(minutes) from now", "operation": "+", "relativedelta": "minutes", "value": "<int>"}
+{"pattern": "the next <int> minute(minutes)", "operation": "+", "relativedelta": "minutes", "value": "<int>"}
+{"pattern": "<int> minute(minutes)", "operation": "+", "relativedelta": "minutes", "value": "<int>"}

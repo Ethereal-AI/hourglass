@@ -5,3 +5,7 @@
 {"pattern": "<int> day(days) from now", "operation": "+", "relativedelta": "days", "value": "<int>"}
 {"pattern": "the next <int> day(days)", "operation": "+", "relativedelta": "days", "value": "<int>"}
 {"pattern": "<int> day(days)", "operation": "+", "relativedelta": "days", "value": "<int>"}
+{"pattern": "<int> hour(hours) ago", "operation": "-", "relativedelta": "hours", "value": "<int>"}
+{"pattern": "<int> hour(hours) from now", "operation": "+", "relativedelta": "hours", "value": "<int>"}
+{"pattern": "the next <int> hour(hours)", "operation": "+", "relativedelta": "hours", "value": "<int>"}
+{"pattern": "<int> hour(hours)", "operation": "+", "relativedelta": "hours", "value": "<int>"}

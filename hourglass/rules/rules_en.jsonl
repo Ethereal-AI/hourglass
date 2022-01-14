@@ -20,3 +20,7 @@
 {"pattern": "<int> second(seconds) from now", "operation": "+", "relativedelta": "seconds", "value": "<int>"}
 {"pattern": "the next <int> second(seconds)", "operation": "+", "relativedelta": "seconds", "value": "<int>"}
 {"pattern": "<int> second(seconds)", "operation": "+", "relativedelta": "seconds", "value": "<int>"}
+{"pattern": "<int> week(weeks) ago", "operation": "-", "relativedelta": "weeks", "value": "<int>"}
+{"pattern": "<int> week(weeks) from now", "operation": "+", "relativedelta": "weeks", "value": "<int>"}
+{"pattern": "the next <int> week(weeks)", "operation": "+", "relativedelta": "weeks", "value": "<int>"}
+{"pattern": "<int> week(weeks)", "operation": "+", "relativedelta": "weeks", "value": "<int>"}

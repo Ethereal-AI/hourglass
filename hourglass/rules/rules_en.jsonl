@@ -24,3 +24,7 @@
 {"pattern": "<int> week(weeks) from now", "operation": "+", "relativedelta": "weeks", "value": "<int>"}
 {"pattern": "the next <int> week(weeks)", "operation": "+", "relativedelta": "weeks", "value": "<int>"}
 {"pattern": "<int> week(weeks)", "operation": "+", "relativedelta": "weeks", "value": "<int>"}
+{"pattern": "<int> month(months) ago", "operation": "-", "relativedelta": "months", "value": "<int>"}
+{"pattern": "<int> month(months) from now", "operation": "+", "relativedelta": "months", "value": "<int>"}
+{"pattern": "the next <int> month(months)", "operation": "+", "relativedelta": "months", "value": "<int>"}
+{"pattern": "<int> month(months)", "operation": "+", "relativedelta": "months", "value": "<int>"}

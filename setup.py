@@ -12,5 +12,6 @@ setup(
     install_requires=[
         "spacy>=3.2.1",
         "python-dateutil>=2.8.1",
+        "word2number",
     ],
 )

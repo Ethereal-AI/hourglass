@@ -30,6 +30,7 @@ from hourglass.utilities.rule_helper_functions import (
 from dateutil.relativedelta import relativedelta
 from datetime import datetime
 from typing import List, Dict
+from word2number import w2n
 
 
 def get_relativedelta_function(unit: str, value: int) -> relativedelta:

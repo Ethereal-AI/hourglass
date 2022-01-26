@@ -25,6 +25,7 @@ from hourglass.utilities.paths import RULES_PATH
 from hourglass.utilities.rule_helper_functions import (
     UNITS_PLURAL,
     UNITS_SINGULAR,
+    PLACE_VALUES,
     tokenize,
 )
 from dateutil.relativedelta import relativedelta

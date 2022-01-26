@@ -213,6 +213,7 @@ def get_datetime_object(tag: str, present: datetime, rules: Dict) -> List:
         return {"entity": tag, "parsed_value": datetime_object}
     except:
         tokens = tokenize(tag)
+        tokens = convert_numerical_words(tokens)
         for idx, token in enumerate(tokens):
             if token in UNITS_SINGULAR:
                 datetime_object = get_dt_singular(idx, token, tokens, rules, present)

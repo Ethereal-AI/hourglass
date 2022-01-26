@@ -21,17 +21,17 @@
 # SOFTWARE.
 """hourglass rule parser functions"""
 import json
-from hourglass.utilities.paths import RULES_PATH
-from hourglass.utilities.rule_helper_functions import (
-    UNITS_PLURAL,
-    UNITS_SINGULAR,
-    PLACE_VALUES,
-    tokenize,
-)
-from dateutil.relativedelta import relativedelta
 from datetime import datetime
-from typing import List, Dict
+from typing import Dict, List
+
+from dateutil.relativedelta import relativedelta
 from word2number import w2n
+
+from hourglass.utilities.paths import RULES_PATH
+from hourglass.utilities.rule_helper_functions import (PLACE_VALUES,
+                                                       UNITS_PLURAL,
+                                                       UNITS_SINGULAR,
+                                                       tokenize)
 
 
 def get_relativedelta_function(unit: str, value: int) -> relativedelta:

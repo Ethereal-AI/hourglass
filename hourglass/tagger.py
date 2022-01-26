@@ -21,7 +21,8 @@
 # SOFTWARE.
 """hourglass datetime tagger class"""
 from datetime import datetime
-from typing import List, Dict, Tuple, Union
+from typing import Dict, List, Tuple, Union
+
 from hourglass.utilities.detector import DateTimeEntityDetector
 from hourglass.utilities.rule_parser import get_datetime_object, load_rules
 

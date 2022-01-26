@@ -20,8 +20,9 @@
 # OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 # SOFTWARE.
 """hourglass detection functions"""
-import spacy
 from typing import Dict
+
+import spacy
 
 __author__ = "Ethereal AI"
 

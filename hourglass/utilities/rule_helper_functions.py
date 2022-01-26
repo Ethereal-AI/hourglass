@@ -49,6 +49,16 @@ UNITS_SINGULAR = (
 )
 
 
+PLACE_VALUES = (
+    "hundred",
+    "thousand",
+    "million",
+    "billion",
+    "trillion",
+    "quadrillion",
+)
+
+
 def tokenize(tag) -> Dict:
     if " " in tag:
         return tag.split(" ")

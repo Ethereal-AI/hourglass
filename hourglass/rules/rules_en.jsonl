@@ -32,3 +32,7 @@
 {"pattern": "<int> year(years) from now", "operation": "+", "relativedelta": "years", "value": "<int>"}
 {"pattern": "the next <int> year(years)", "operation": "+", "relativedelta": "years", "value": "<int>"}
 {"pattern": "<int> year(years)", "operation": "+", "relativedelta": "years", "value": "<int>"}
+{"pattern": "<int> decade(decades) ago", "operation": "-", "relativedelta": "decades", "value": "<int>"}
+{"pattern": "<int> decade(decades) from now", "operation": "+", "relativedelta": "decades", "value": "<int>"}
+{"pattern": "the next <int> decade(decades)", "operation": "+", "relativedelta": "decades", "value": "<int>"}
+{"pattern": "<int> decade(decades)", "operation": "+", "relativedelta": "decades", "value": "<int>"}

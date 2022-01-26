@@ -127,6 +127,29 @@ def compute_datetime(rule, present: datetime, unit=None, special_value=None):
             return present
 
 
+def get_dt_singular(token, tokens, rules, present):
+    value = tokens[idx - 1]
+    try:
+        tag_head = tokens[: idx - 1]
+    except:
+        tag_head = []
+    rule = get_custom_rule(
+        rules,
+        token,
+        UNITS_SINGULAR.index(token),
+        tag_head,
+        tokens[idx + 1 :],
+        "singular",
+    )
+    datetime_object = compute_datetime(
+        rule,
+        present,
+        UNITS_PLURAL[UNITS_SINGULAR.index(token)],
+        special_value=value,
+    )
+    return datetime_object
+
+
 def get_datetime_object(tag: str, present: datetime, rules: Dict) -> List:
     try:
         rule = rules.get(tag)
@@ -136,25 +159,7 @@ def get_datetime_object(tag: str, present: datetime, rules: Dict) -> List:
         tokens = tokenize(tag)
         for idx, token in enumerate(tokens):
             if token in UNITS_SINGULAR:
-                value = tokens[idx - 1]
-                try:
-                    tag_head = tokens[: idx - 1]
-                except:
-                    tag_head = []
-                rule = get_custom_rule(
-                    rules,
-                    token,
-                    UNITS_SINGULAR.index(token),
-                    tag_head,
-                    tokens[idx + 1 :],
-                    "singular",
-                )
-                datetime_object = compute_datetime(
-                    rule,
-                    present,
-                    UNITS_PLURAL[UNITS_SINGULAR.index(token)],
-                    special_value=value,
-                )
+                datetime_object = get_dt_singular(token, tokens, rules, present)
                 return {"entity": tag, "parsed_value": datetime_object}
             elif token in UNITS_PLURAL:
                 value = tokens[idx - 1]

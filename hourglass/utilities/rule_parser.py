@@ -153,7 +153,7 @@ def convert_numerical_words(tokens):
             del to_delete[-1]
         number_word = " ".join(numerical_words)
         numerical_token = str(w2n.word_to_num(number_word))
-        del tokens[to_delete[0]:to_delete[-1]+1]
+        del tokens[to_delete[0] : to_delete[-1] + 1]
         tokens.insert(to_delete[0], numerical_token)
         return tokens
     else:

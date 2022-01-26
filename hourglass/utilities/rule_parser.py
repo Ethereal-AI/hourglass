@@ -128,6 +128,39 @@ def compute_datetime(rule, present: datetime, unit=None, special_value=None):
             return present
 
 
+def convert_numerical_words(tokens):
+    numerical_words = list()
+    to_delete = list()
+    for idx, token in enumerate(tokens):
+        token = token.lower()
+        try:
+            w2n.word_to_num(token)
+            numerical_words.append(token)
+            to_delete.append(idx)
+        except:
+            if token in PLACE_VALUES:
+                numerical_words.append(token)
+                to_delete.append(idx)
+            elif token == "and":
+                numerical_words.append(token)
+                to_delete.append(idx)
+            elif token in UNITS_SINGULAR or token in UNITS_PLURAL:
+                break
+    if len(numerical_words) != 0:
+        last_token = numerical_words[-1]
+        if last_token == "and":
+            del last_token
+            del to_delete[-1]
+        number_word = " ".join(numerical_words)
+        numerical_token = str(w2n.word_to_num(number_word))
+        print(numerical_token, to_delete)
+        del tokens[to_delete[0]:to_delete[-1]+1]
+        tokens.insert(to_delete[0], numerical_token)
+        return tokens
+    else:
+        return tokens
+
+
 def get_dt_singular(idx, token, tokens, rules, present):
     value = tokens[idx - 1]
     try:

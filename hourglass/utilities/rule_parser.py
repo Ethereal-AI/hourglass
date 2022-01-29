@@ -118,7 +118,7 @@ def compute_datetime(rule, present: datetime, unit=None, special_value=None):
         else:
             return present
     else:
-        if special_value == "a":
+        if special_value in ("a", "an"):
             special_value = 1
         if rule.get("operation") == "-":
             return present - get_relativedelta_function(unit, int(special_value))

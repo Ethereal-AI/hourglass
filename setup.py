@@ -4,7 +4,7 @@ __author__ = "Ethereal AI"
 
 setup(
     name="hourglass",
-    version="0.0.1",
+    version="0.1.0",
     packages=["hourglass"],
     url="https://github.com/Ethereal-AI/hourglass",
     author=__author__,
